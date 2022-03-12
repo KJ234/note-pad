@@ -32,7 +32,7 @@ Router.post("/api/notes", (req, res) => {
           return res.json(db);
         }
       });
-    
+    }
   });
 });
 
