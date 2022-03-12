@@ -13,4 +13,27 @@ Router.get("/api/notes", (req, res) => {
   });
 });
 
+Router.post("/api/notes", (req, res) => {
+  fs.readFile("db/db.json", (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const db = JSON.parse(data);
+      const newNote = req.body;
+      const id = "id";
+      const noteId = uniqid();
+      newNote[id] = noteId;
+      db.push(newNote);
+
+      fs.writeFile("db/db.json", JSON.stringify(db), (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          return res.json(db);
+        }
+      });
+    }
+  });
+});
+
 module.exports = Router;
